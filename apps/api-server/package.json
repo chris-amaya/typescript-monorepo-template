@@ -1,5 +1,5 @@
 {
-  "name": "@{{projectName}}/api-server",
+  "name": "@store/api-server",
   "version": "0.1.0",
   "private": true,
   "main": "dist/index.js",
@@ -13,9 +13,9 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@{{projectName}}/core": "workspace:*",
-    "@{{projectName}}/database": "workspace:*",
-    "@{{projectName}}/shared": "workspace:*",
+    "@store/core": "workspace:*",
+    "@store/database": "workspace:*",
+    "@store/shared": "workspace:*",
     "express": "^4.19.2",
     "cors": "^2.8.5",
     "helmet": "^8.0.0",

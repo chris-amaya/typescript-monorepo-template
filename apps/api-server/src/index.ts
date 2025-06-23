@@ -1,7 +1,7 @@
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
-import { logger } from '@{{projectName}}/shared';
+import { logger } from '@store/shared';
 
 const app = express();
 const PORT = process.env.PORT || 3001;
