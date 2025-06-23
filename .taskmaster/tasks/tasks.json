@@ -1,0 +1,121 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Setup Project Repository and Infrastructure",
+        "description": "Initialize Next.js project with TypeScript, set up Supabase database, configure Prisma ORM, and establish basic project structure",
+        "details": "Create Next.js app with App Router using `npx create-next-app@latest bajoprecio --typescript --tailwind --eslint --app`. Install dependencies: @prisma/client, prisma, @supabase/supabase-js, @auth/prisma-adapter, next-auth. Set up Supabase project and get connection string. Initialize Prisma with `npx prisma init`. Configure environment variables for DATABASE_URL, NEXTAUTH_SECRET, NEXTAUTH_URL. Set up basic folder structure: /app, /lib, /components, /types.",
+        "testStrategy": "Verify project builds successfully with `npm run build`. Test database connection with `npx prisma db push`. Confirm all environment variables are properly loaded.",
+        "priority": "high",
+        "dependencies": [],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 2,
+        "title": "Implement Database Schema and Models",
+        "description": "Create Prisma schema with Deal, User, Vote, Comment, and CommentVote models as specified in the PRD",
+        "details": "Define Prisma schema in schema.prisma with exact models from PRD: Deal (with DealStatus enum), User, Vote, Comment, CommentVote. Include all specified fields, relationships, and constraints. Set up unique constraints for Vote (dealId, userId) and CommentVote (commentId, userId). Configure Decimal type for price fields. Run `npx prisma db push` to create database tables. Generate Prisma client with `npx prisma generate`.",
+        "testStrategy": "Run `npx prisma db push` without errors. Use `npx prisma studio` to verify all tables and relationships are created correctly. Test basic CRUD operations with Prisma client.",
+        "priority": "high",
+        "dependencies": [1],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 3,
+        "title": "Implement Authentication System",
+        "description": "Set up NextAuth with email and Google providers, integrate with Prisma adapter, and implement user session management",
+        "details": "Install next-auth and @auth/prisma-adapter. Create /app/api/auth/[...nextauth]/route.ts with NextAuth configuration. Configure email provider (using SendGrid SMTP) and Google OAuth provider. Set up Prisma adapter for session storage. Create middleware.ts for protecting admin routes. Implement user session context and hooks. Add login/logout UI components using shadcn/ui. Configure NEXTAUTH_SECRET and Google OAuth credentials.",
+        "testStrategy": "Test email and Google login flows. Verify user sessions persist correctly. Check protected routes require authentication. Validate user data is stored in database.",
+        "priority": "high",
+        "dependencies": [2],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 4,
+        "title": "Build RSS Feed Ingestion System",
+        "description": "Create automated RSS feed parser that extracts deals from 6 RSS sources every 3 hours, with source-specific mappers for price and store extraction",
+        "details": "Create /app/api/ingest/route.ts API endpoint. Implement RSS feed parser using xml2js or fast-xml-parser. Create source-specific mappers with RegEx patterns to extract price, store, and image from RSS feed titles/content. Handle Promodescuentos and Amazon feeds initially. Implement duplicate detection by URL hash. Store parsed deals with status='DRAFT'. Create types for RSS feed items and deal extraction. Add error handling and logging. Set up cron job using Vercel Scheduled Functions or external cron service hitting the endpoint.",
+        "testStrategy": "Test RSS parsing with sample feeds. Verify duplicate detection prevents re-ingestion. Check extracted price, store, and image data accuracy. Test cron job execution every 3 hours.",
+        "priority": "high",
+        "dependencies": [2],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 5,
+        "title": "Create Admin Curation Panel",
+        "description": "Build admin interface to review draft deals, with publish/discard functionality and automatic notification triggers",
+        "details": "Create /app/admin/drafts page protected by middleware. Build admin dashboard showing drafts sorted by discount percentage. Implement publish/discard buttons with API endpoints /api/admin/deals/[id]/publish and /api/admin/deals/[id]/discard. Publishing sets status='LIVE', publishedAt timestamp, and triggers Telegram notification. Use shadcn/ui components for data table with sorting and filtering. Add role-based access control for admin users. Implement optimistic UI updates.",
+        "testStrategy": "Test admin authentication and access control. Verify publish action updates deal status and triggers notifications. Check discard functionality removes deals from draft queue. Validate UI updates correctly.",
+        "priority": "high",
+        "dependencies": [3, 4],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 6,
+        "title": "Implement Public Deal Feed and Detail Pages",
+        "description": "Create public homepage showing up to 25 live deals and individual deal detail pages with full information",
+        "details": "Create /app/page.tsx homepage displaying deals with status='LIVE', limited to 25, ordered by publishedAt DESC. Design deal cards showing title, store, MXN price, discount percentage, and thumbnail using Tailwind and shadcn/ui. Create /app/deals/[id]/page.tsx for deal details with full description, affiliate link, and space for voting/comments. Implement /api/deals endpoint with filters for store, category, price_min, price_max. Add SEO meta tags, canonical URLs, and JSON-LD structured data. Generate Open Graph images automatically.",
+        "testStrategy": "Test homepage loads 25 most recent deals correctly. Verify deal detail pages show complete information. Test API filters work properly. Check SEO tags and structured data are present.",
+        "priority": "medium",
+        "dependencies": [2],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 7,
+        "title": "Build Voting and Comments System",
+        "description": "Implement deal voting, comment system with Markdown support, comment voting, and karma calculation",
+        "details": "Create /api/deals/[id]/vote endpoint for deal voting with idempotent logic (returns 409 for duplicate votes). Implement /api/deals/[id]/comments for posting comments with 500 character limit and Markdown sanitization using remark/rehype. Add /api/comments/[id]/vote for comment voting. Build React components for voting UI with up/down arrows. Create comment display with nested voting. Implement karma calculation: +1 for comment upvotes, -1 for downvotes. Add real-time vote count updates. Use zod for input validation.",
+        "testStrategy": "Test voting prevents duplicate votes and returns correct HTTP codes. Verify comment Markdown rendering and character limits. Check karma calculation updates correctly. Test UI updates in real-time.",
+        "priority": "medium",
+        "dependencies": [3, 6],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 8,
+        "title": "Implement Notification Systems",
+        "description": "Set up Telegram bot integration for instant deal notifications and daily email digest system",
+        "details": "Register Telegram bot and get API token. Create Telegram service in /lib/telegram.ts using fetch to send messages to @BajoPrecioMX channel. Integrate Telegram notification trigger in deal publish action. Set up SendGrid account and configure SMTP credentials. Create email templates for daily digest. Build /api/cron/daily-digest endpoint that runs at 00:05 UTC-6, selects top 10 deals by score, and sends to opted-in users. Add email subscription preferences to user model. Implement unsubscribe functionality.",
+        "testStrategy": "Test Telegram bot sends messages when deals are published. Verify daily email digest contains top 10 deals and sends to correct recipients. Check unsubscribe links work properly.",
+        "priority": "medium",
+        "dependencies": [5],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 9,
+        "title": "Build Reporting and Moderation System",
+        "description": "Implement deal reporting functionality, automatic review triggering, and user ban system",
+        "details": "Create /api/deals/[id]/report endpoint that increments reports count. Add automatic status change to 'REVIEW' when reports >= 3. Build admin review interface at /app/admin/reported showing deals needing review. Implement hide deal functionality and 30-day user ban system. Add bannedUntil field logic to prevent banned users from commenting/voting. Create anonymous reporting UI with rate limiting (5 reports per IP per hour). Add moderation log for audit trail.",
+        "testStrategy": "Test reporting increments count and triggers review status. Verify banned users cannot interact with deals. Check admin can hide deals and ban users. Test rate limiting prevents spam reports.",
+        "priority": "medium",
+        "dependencies": [3, 6],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 10,
+        "title": "Implement Blog System and Monetization",
+        "description": "Create MDX blog system, integrate affiliate links, set up Google AdSense, and implement karma leaderboard",
+        "details": "Install and configure @next/mdx for blog posts. Create /app/blog/[slug]/page.tsx for individual posts and /app/blog/page.tsx for blog listing. Set up MDX content directory structure. Implement affiliate link replacement service for Amazon and Mercado Libre IDs. Add Google AdSense integration for blog pages only. Create karma leaderboard at /app/leaderboard showing monthly top users. Implement MX$200 Amazon gift card winner selection. Add blog post creation workflow for admin. Include RSS feed for blog at /api/blog/rss.",
+        "testStrategy": "Test MDX blog posts render correctly with proper routing. Verify affiliate links are automatically inserted. Check AdSense appears only on blog pages. Test leaderboard calculates karma correctly and shows monthly winners.",
+        "priority": "low",
+        "dependencies": [3],
+        "status": "pending",
+        "subtasks": []
+      }
+    ],
+    "metadata": {
+      "created": "2025-06-23T09:55:09.088Z",
+      "updated": "2025-06-23T09:55:09.088Z",
+      "description": "Tasks for master context"
+    }
+  }
+}
