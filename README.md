@@ -63,18 +63,28 @@ pnpm dev
 
 ## 🏛️ Clean Architecture
 
-The `packages/core` follows Clean Architecture principles:
+The `packages/core` follows Clean Architecture principles with a complete folder structure:
 
 ```
 packages/core/src/
 ├── application/         # Use cases and business logic
-├── domain/             # Entities and business rules  
+│   ├── usecases/       # Business use cases (.gitkeep preserved)
+│   └── services/       # Application services (.gitkeep preserved)  
+├── domain/             # Entities and business rules
+│   ├── entities/       # Domain entities (.gitkeep preserved)
+│   └── repositories/   # Repository interfaces (.gitkeep preserved)
 ├── infrastructure/     # External services & adapters
-├── ports/              # Interface definitions
+│   ├── adapters/       # Infrastructure adapters (.gitkeep preserved)
+│   └── db/            # Database implementations (.gitkeep preserved)
+├── ports/              # Interface definitions (.gitkeep preserved)
 ├── presentation/       # Controllers and handlers
+│   ├── controllers/    # Controllers (.gitkeep preserved)
+│   └── handlers/       # Request handlers (.gitkeep preserved)
 ├── types/              # Shared types
-└── validation/         # Schema validation
+└── validation/         # Schema validation (.gitkeep preserved)
 ```
+
+> **Note:** `.gitkeep` files preserve the folder structure when cloning the template, giving you the complete Clean Architecture layout from day one.
 
 ## 🚀 Development Commands
 
