@@ -1,5 +1,5 @@
 {
-  "name": "@{{projectName}}/shared",
+  "name": "@test/shared",
   "version": "1.0.0",
   "private": true,
   "main": "dist/index.js",
@@ -12,7 +12,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "winston": "^3.18.1"
+    "winston": "^3.17.0"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",

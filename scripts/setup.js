@@ -1,6 +1,7 @@
 #!/usr/bin/env node
 
-const fs = require('fs-extra');
+const fs = require('fs').promises;
+const fsSync = require('fs');
 const path = require('path');
 const { execSync } = require('child_process');
 
@@ -53,7 +54,7 @@ async function replacePlaceholders(dir, replacements) {
     const filePath = path.join(dir, file);
     const stat = await fs.stat(filePath);
     
-    if (stat.isDirectory() && !file.startsWith('.') && file !== 'node_modules') {
+    if (stat.isDirectory() && !file.startsWith('.') && file !== 'node_modules' && file !== 'scripts') {
       await replacePlaceholders(filePath, replacements);
     } else if (stat.isFile() && (file.endsWith('.json') || file.endsWith('.ts') || file.endsWith('.tsx') || file.endsWith('.js') || file.endsWith('.jsx') || file.endsWith('.md'))) {
       try {
