@@ -1,0 +1,18 @@
+{
+  "extends": [
+    "../../.eslintrc.json"
+  ],
+  "env": {
+    "node": true,
+    "es2022": true
+  },
+  "rules": {
+    "@typescript-eslint/no-unused-vars": "error",
+    "no-console": "warn"
+  },
+  "ignorePatterns": [
+    "node_modules/",
+    "dist/",
+    "build/"
+  ]
+}

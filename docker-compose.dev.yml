@@ -1,0 +1,35 @@
+version: '3.8'
+
+# Development overrides for docker-compose.yml
+services:
+  api-server:
+    build:
+      context: .
+      dockerfile: apps/api-server/Dockerfile
+      target: deps  # Stop at deps stage for development
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=postgresql://postgres:postgres@postgres:5432/{{projectName}}
+      - REDIS_URL=redis://redis:6379
+      - PORT=3001
+      - LOG_LEVEL=debug
+    volumes:
+      - ./apps/api-server:/app/apps/api-server
+      - ./packages:/app/packages
+      - /app/node_modules
+    command: ["pnpm", "dev"]
+
+  web:
+    build:
+      context: .
+      dockerfile: apps/web/Dockerfile
+      target: deps  # Stop at deps stage for development
+    environment:
+      - NODE_ENV=development
+      - NEXT_PUBLIC_API_URL=http://localhost:3001
+    volumes:
+      - ./apps/web:/app/apps/web
+      - ./packages:/app/packages
+      - /app/node_modules
+      - /app/apps/web/.next
+    command: ["pnpm", "dev"]
