@@ -1,0 +1,1 @@
+{"version":3,"file":"initializer.d.ts","sourceRoot":"","sources":["../../src/utils/initializer.ts"],"names":[],"mappings":"AAGA,MAAM,WAAW,UAAU;IACzB,kBAAkB,EAAE,OAAO,CAAC;IAC5B,UAAU,EAAE,MAAM,CAAC;CACpB;AAED,wBAAsB,yBAAyB,CAC7C,WAAW,EAAE,MAAM,EACnB,KAAK,GAAE,OAAe,GACrB,OAAO,CAAC,UAAU,CAAC,CAyCrB"}

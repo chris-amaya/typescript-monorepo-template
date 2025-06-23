@@ -173,3 +173,5 @@ apps/openai-server/docker-artifacts/
 # Task files
 # tasks.json
 # tasks/ 
+# Monorepo features tracking
+.monorepo-features/
