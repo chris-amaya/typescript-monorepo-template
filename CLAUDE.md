@@ -33,6 +33,11 @@ The `packages/core` uses Clean Architecture with directories for:
 - `pnpm typecheck` - Type check all packages
 - `pnpm format` - Format code with Prettier
 
+### Git Hooks (Husky)
+- **Pre-commit**: Runs lint-staged to lint and format staged files
+- **Commit-msg**: Validates commit messages using conventional commits format
+- Supported commit types: `feat`, `fix`, `docs`, `style`, `refactor`, `perf`, `test`, `build`, `ci`, `chore`, `revert`
+
 ### Package-Specific Commands
 - Web app: `pnpm --filter @{{projectName}}/web [command]`
 - API server: `pnpm --filter @{{projectName}}/api-server [command]`
@@ -55,6 +60,7 @@ Apps depend on workspace packages:
 - **Testing**: Vitest with React Testing Library
 - **Build**: Turborepo for caching and parallel builds
 - **Package Manager**: pnpm with workspaces
+- **Git Hooks**: Husky with lint-staged and commitlint
 
 ## Development Setup
 
