@@ -1,0 +1,176 @@
+{
+  "master": {
+    "tasks": [
+      {
+        "id": 1,
+        "title": "Design Feature Registry Schema",
+        "description": "Define the JSON schema and data structure for feature definitions including metadata, dependencies, conflicts, templates, and scripts",
+        "details": "Create a comprehensive JSON schema that defines: feature ID, name, description, version, dependencies array, conflicts array, file templates object, npm scripts array, environment variables, and validation rules. Include TypeScript interfaces for type safety. Schema should support nested configurations and conditional content blocks.",
+        "testStrategy": "Unit tests for schema validation, test parsing of sample feature definitions, validate schema against edge cases and malformed inputs",
+        "priority": "high",
+        "dependencies": [],
+        "status": "in-progress",
+        "subtasks": []
+      },
+      {
+        "id": 2,
+        "title": "Implement Feature Registry Core Module",
+        "description": "Build the foundational feature registry system that loads, validates, and manages feature definitions",
+        "details": "Create FeatureRegistry class with methods: loadFeatures(), validateFeature(), getFeature(), listFeatures(), resolveDependencies(), detectConflicts(). Implement file system scanning for feature definitions, JSON validation, and dependency graph resolution. Support dynamic loading and caching of feature definitions.",
+        "testStrategy": "Unit tests for each registry method, integration tests for feature loading, test dependency resolution algorithms, validate conflict detection logic",
+        "priority": "high",
+        "dependencies": [1],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 3,
+        "title": "Enhance Template Engine with Conditional Logic",
+        "description": "Extend the existing setup.js template engine to support conditional content inclusion and feature-based templating",
+        "details": "Enhance current placeholder replacement system with conditional blocks using syntax like {{#if feature.enabled}}...{{/if}}. Implement template inheritance, nested configurations, and dynamic content generation. Add support for feature-specific template overrides and merging strategies.",
+        "testStrategy": "Unit tests for conditional logic evaluation, template rendering tests with various feature combinations, validate template inheritance chain resolution",
+        "priority": "high",
+        "dependencies": [2],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 4,
+        "title": "Create Core Feature Modules - Linting",
+        "description": "Implement ESLint and Prettier feature module with configuration templates and dependencies",
+        "details": "Create linting feature module containing: ESLint config templates, Prettier config, package.json dependencies (@typescript-eslint/parser, @typescript-eslint/eslint-plugin, prettier), npm scripts (lint, lint:fix, format), and VS Code settings. Support multiple linting presets (strict, recommended, minimal).",
+        "testStrategy": "Validate generated ESLint configs parse correctly, test linting rules on sample code, verify Prettier formatting consistency, integration test with template engine",
+        "priority": "medium",
+        "dependencies": [3],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 5,
+        "title": "Create Core Feature Modules - Testing",
+        "description": "Implement testing framework feature module with Jest/Vitest configuration and test utilities",
+        "details": "Create testing feature module with: Jest or Vitest configuration templates, test setup files, example test files, coverage configuration, package.json dependencies (jest, @types/jest, ts-jest), npm scripts (test, test:watch, test:coverage). Support both unit and integration testing setups.",
+        "testStrategy": "Validate test configurations work with TypeScript, verify test runners execute correctly, test coverage reporting functionality, validate example tests pass",
+        "priority": "medium",
+        "dependencies": [3],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 6,
+        "title": "Create Core Feature Modules - Docker",
+        "description": "Implement Docker containerization feature module with Dockerfile templates and docker-compose configurations",
+        "details": "Create Docker feature module containing: multi-stage Dockerfile for Node.js apps, docker-compose.yml for development, .dockerignore file, health check configurations, environment-specific Docker configs, and npm scripts for Docker operations (docker:build, docker:run, docker:dev).",
+        "testStrategy": "Validate Dockerfiles build successfully, test container startup and health checks, verify docker-compose orchestration works, validate multi-environment configurations",
+        "priority": "medium",
+        "dependencies": [3],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 7,
+        "title": "Create Core Feature Modules - CI/CD",
+        "description": "Implement GitHub Actions workflow feature module with automated testing and deployment pipelines",
+        "details": "Create CI/CD feature module with: GitHub Actions workflows for testing, building, and deployment, support for multiple Node.js versions, cache optimization for pnpm, semantic release configuration, workflow templates for different deployment targets (Vercel, AWS, Docker Hub).",
+        "testStrategy": "Validate workflow YAML syntax, test workflow execution in sample repository, verify caching mechanisms work correctly, validate deployment pipeline functionality",
+        "priority": "medium",
+        "dependencies": [4, 5],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 8,
+        "title": "Create Core Feature Modules - Database",
+        "description": "Implement database integration feature module with ORM setup and migration scripts",
+        "details": "Create database feature module supporting: Prisma ORM setup, database connection configuration, migration scripts, seed data templates, environment-specific database configs, Docker database services, and npm scripts for database operations (db:migrate, db:seed, db:reset).",
+        "testStrategy": "Validate Prisma schema generation, test database connections, verify migration execution, validate seed data insertion, test database Docker services",
+        "priority": "medium",
+        "dependencies": [3],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 9,
+        "title": "Build Interactive CLI Interface",
+        "description": "Create user-friendly command-line interface for feature selection during project initialization",
+        "details": "Implement CLI using inquirer.js or similar for interactive prompts. Include: feature selection with descriptions and dependencies, preset configurations (startup, enterprise, open-source), dependency visualization, confirmation with preview of changes, and command-line flags for non-interactive usage.",
+        "testStrategy": "Unit tests for CLI logic, integration tests for user interaction flows, validate preset configurations work correctly, test non-interactive mode with flags",
+        "priority": "high",
+        "dependencies": [2],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 10,
+        "title": "Implement Configuration Manager",
+        "description": "Build system to handle feature integration, dependency resolution, and configuration conflict detection",
+        "details": "Create ConfigurationManager class with methods: resolveFeatureDependencies(), detectConfigConflicts(), mergeConfigurations(), validateFeatureCombination(). Implement algorithms for dependency graph traversal, conflict resolution strategies, and configuration merging with precedence rules.",
+        "testStrategy": "Unit tests for dependency resolution algorithms, test conflict detection with various feature combinations, validate configuration merging logic, test edge cases and circular dependencies",
+        "priority": "high",
+        "dependencies": [2, 9],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 11,
+        "title": "Integrate Enhanced Setup Script",
+        "description": "Modify the existing setup.js to use the new feature system while maintaining backward compatibility",
+        "details": "Refactor setup.js to: integrate with FeatureRegistry, use ConfigurationManager for feature resolution, maintain existing placeholder replacement, add feature selection workflow, preserve backward compatibility with current template structure, and provide migration path for existing users.",
+        "testStrategy": "Integration tests with existing template structure, validate backward compatibility, test feature selection workflow, verify migration path works correctly",
+        "priority": "high",
+        "dependencies": [10],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 12,
+        "title": "Implement Template Inheritance System",
+        "description": "Build advanced templating system supporting project type inheritance and template composition",
+        "details": "Create template inheritance system with: base template definitions, project type templates (web-only, API-only, full-stack), template composition rules, override mechanisms, and inheritance chain resolution. Support multiple inheritance levels and template merging strategies.",
+        "testStrategy": "Unit tests for inheritance resolution, validate template composition logic, test override mechanisms, verify complex inheritance chains work correctly",
+        "priority": "medium",
+        "dependencies": [3, 11],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 13,
+        "title": "Build Post-Initialization Feature Addition",
+        "description": "Implement system to add features to existing projects without disrupting current setup",
+        "details": "Create feature addition system with: project state detection, incremental feature installation, configuration merging for existing files, dependency conflict resolution, and rollback mechanisms. Support adding features without regenerating entire project structure.",
+        "testStrategy": "Integration tests on existing projects, validate incremental feature addition, test configuration merging, verify rollback functionality works correctly",
+        "priority": "medium",
+        "dependencies": [11],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 14,
+        "title": "Implement Preset Configuration System",
+        "description": "Create predefined configuration sets for common use cases and user personas",
+        "details": "Build preset system with: predefined feature combinations for startup, enterprise, and open-source projects, user persona-based recommendations, preset customization options, and preset sharing/export functionality. Include validation and testing for each preset combination.",
+        "testStrategy": "Validate each preset generates working project, test preset customization options, verify persona-based recommendations accuracy, integration test with CLI interface",
+        "priority": "low",
+        "dependencies": [9, 12],
+        "status": "pending",
+        "subtasks": []
+      },
+      {
+        "id": 15,
+        "title": "Create Feature Validation and Testing Framework",
+        "description": "Build comprehensive testing system to ensure feature combinations work correctly and maintain template quality",
+        "details": "Implement validation framework with: automated testing of feature combinations, template generation validation, dependency conflict detection, performance testing for large feature sets, and continuous integration for template quality assurance. Include test matrix generation for all valid feature combinations.",
+        "testStrategy": "Meta-testing framework validation, performance benchmarks for feature resolution, test coverage metrics for feature combinations, integration with CI/CD pipeline",
+        "priority": "medium",
+        "dependencies": [13],
+        "status": "pending",
+        "subtasks": []
+      }
+    ],
+    "metadata": {
+      "created": "2025-06-23T06:39:36.200Z",
+      "updated": "2025-06-23T06:40:39.028Z",
+      "description": "Tasks for master context"
+    }
+  }
+}

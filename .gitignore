@@ -169,3 +169,7 @@ apps/openai-server/native/whisper_build/
 # Downloaded Whisper models (can be re-downloaded)
 apps/openai-server/models/
 apps/openai-server/docker-artifacts/
+
+# Task files
+# tasks.json
+# tasks/ 
