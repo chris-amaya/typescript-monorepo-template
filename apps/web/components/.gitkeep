@@ -1,0 +1,6 @@
+# This file keeps the directory structure for component organization
+# Organize your components using Atomic Design principles:
+# - atoms/ - Basic building blocks
+# - molecules/ - Groups of atoms  
+# - organisms/ - Groups of molecules
+# - templates/ - Page-level layouts
