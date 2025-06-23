@@ -31,7 +31,7 @@ exports.statusCommand = new commander_1.Command('status')
             console.log(chalk_1.default.gray('  Run'), chalk_1.default.cyan('monorepo-features list'), chalk_1.default.gray('to see available features.'));
         }
         else {
-            installedFeatures.forEach(feature => {
+            installedFeatures.forEach((feature) => {
                 console.log(chalk_1.default.green('  ✓'), chalk_1.default.cyan(feature.id), chalk_1.default.gray(`(v${feature.version})`));
                 console.log(`    ${feature.description}`);
                 if (feature.installedAt) {

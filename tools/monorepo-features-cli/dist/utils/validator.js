@@ -10,10 +10,10 @@ async function validateProject(projectPath) {
     try {
         // Check for package.json
         const packageJsonPath = path_1.default.join(projectPath, 'package.json');
-        if (!await fs_extra_1.default.pathExists(packageJsonPath)) {
+        if (!(await fs_extra_1.default.pathExists(packageJsonPath))) {
             return {
                 isValid: false,
-                error: 'No package.json found in project directory'
+                error: 'No package.json found in project directory',
             };
         }
         const packageJson = await fs_extra_1.default.readJson(packageJsonPath);
@@ -25,7 +25,7 @@ async function validateProject(projectPath) {
         if (!hasWorkspaces && !hasPnpmWorkspace && !hasLernaJson) {
             return {
                 isValid: false,
-                error: 'Project does not appear to be a monorepo (no workspaces configuration found)'
+                error: 'Project does not appear to be a monorepo (no workspaces configuration found)',
             };
         }
         // Check for TypeScript
@@ -33,7 +33,7 @@ async function validateProject(projectPath) {
         if (!hasTsConfig) {
             return {
                 isValid: false,
-                error: 'No TypeScript configuration found (tsconfig.json missing)'
+                error: 'No TypeScript configuration found (tsconfig.json missing)',
             };
         }
         // Determine project type
@@ -49,13 +49,13 @@ async function validateProject(projectPath) {
         return {
             isValid: true,
             projectName: packageJson.name || 'Unnamed project',
-            projectType
+            projectType,
         };
     }
     catch (error) {
         return {
             isValid: false,
-            error: `Error validating project: ${error}`
+            error: `Error validating project: ${error}`,
         };
     }
 }

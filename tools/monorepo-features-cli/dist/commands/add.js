@@ -35,7 +35,7 @@ exports.addCommand = new commander_1.Command('add')
             if (conflicts.length > 0) {
                 spinner.fail('Conflicts detected');
                 console.log(chalk_1.default.yellow('\nThe following conflicts were found:'));
-                conflicts.forEach(conflict => {
+                conflicts.forEach((conflict) => {
                     console.log(chalk_1.default.yellow(`  - ${conflict}`));
                 });
                 console.log('\nUse --force to install anyway.');

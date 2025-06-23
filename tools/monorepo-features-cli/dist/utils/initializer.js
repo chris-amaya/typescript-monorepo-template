@@ -13,7 +13,7 @@ async function initializeFeatureTracking(projectPath, force = false) {
     if (exists && !force) {
         return {
             alreadyInitialized: true,
-            configPath
+            configPath,
         };
     }
     // Create config directory
@@ -24,8 +24,8 @@ async function initializeFeatureTracking(projectPath, force = false) {
         installedFeatures: [],
         projectMetadata: {
             initializedAt: new Date().toISOString(),
-            cliVersion: '0.1.0'
-        }
+            cliVersion: '0.1.0',
+        },
     };
     await fs_extra_1.default.writeJson(configPath, initialConfig, { spaces: 2 });
     // Add to .gitignore if it exists
@@ -38,7 +38,7 @@ async function initializeFeatureTracking(projectPath, force = false) {
     }
     return {
         alreadyInitialized: false,
-        configPath
+        configPath,
     };
 }
 //# sourceMappingURL=initializer.js.map

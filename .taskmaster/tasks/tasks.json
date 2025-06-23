@@ -15,12 +15,12 @@
       {
         "id": 17,
         "title": "Define Feature Registry JSON Schema",
-        "description": "Create comprehensive JSON schema for feature definitions with TypeScript interfaces and validation rules",
-        "details": "Design JSON schema with required fields: id, name, description, version, author, category, timestamps. Add optional fields for dependencies, conflicts, templates, npm packages, environment variables. Create TypeScript interfaces matching schema. Use ajv for runtime validation. Include schema versioning for future compatibility.",
-        "testStrategy": "Schema validation tests with valid/invalid feature definitions, TypeScript type checking, edge case validation",
-        "priority": "high",
+        "description": "Comprehensive JSON schema for feature definitions with TypeScript interfaces and validation rules has been implemented",
+        "status": "done",
         "dependencies": [16],
-        "status": "pending",
+        "priority": "high",
+        "details": "Successfully implemented JSON schema with required fields: id, name, description, version, author, category, timestamps. Added optional fields for dependencies, conflicts, templates, npm packages, environment variables. Created TypeScript interfaces matching schema with AJV-based runtime validation and format validators. Implemented schema versioning system for future compatibility. Added example feature definition (auth-jwt) and comprehensive schema documentation. All validation tests are passing.",
+        "testStrategy": "Schema validation tests with valid/invalid feature definitions completed and passing, TypeScript type checking implemented, edge case validation covered",
         "subtasks": []
       },
       {
@@ -114,7 +114,7 @@
     ],
     "metadata": {
       "created": "2025-06-23T06:39:36.200Z",
-      "updated": "2025-06-23T08:50:40.174Z",
+      "updated": "2025-06-23T09:04:18.181Z",
       "description": "Tasks for master context"
     }
   }

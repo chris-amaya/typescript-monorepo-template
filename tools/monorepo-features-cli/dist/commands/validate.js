@@ -55,7 +55,7 @@ exports.validateCommand = new commander_1.Command('validate')
         }
         else {
             console.log(chalk_1.default.red('✗ Missing dependencies:'));
-            featureValidation.missingDependencies.forEach(dep => {
+            featureValidation.missingDependencies.forEach((dep) => {
                 console.log(chalk_1.default.red(`  - ${dep}`));
             });
         }

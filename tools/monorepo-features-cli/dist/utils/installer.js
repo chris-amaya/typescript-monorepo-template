@@ -22,13 +22,15 @@ async function installFeature(featureId, _options) {
   1. Run 'pnpm install' to install new dependencies
   2. Check the generated files in your project
   3. Follow the feature-specific setup instructions
-    `
+    `,
     };
     // Record the installation in the config
     const configDir = path_1.default.join(process.cwd(), '.monorepo-features');
     const configPath = path_1.default.join(configDir, 'config.json');
     await fs_extra_1.default.ensureDir(configDir);
-    let config = { installedFeatures: [] };
+    let config = {
+        installedFeatures: [],
+    };
     if (await fs_extra_1.default.pathExists(configPath)) {
         config = await fs_extra_1.default.readJson(configPath);
     }
@@ -36,7 +38,7 @@ async function installFeature(featureId, _options) {
     config.installedFeatures.push({
         id: featureId,
         version: '1.0.0',
-        installedAt: new Date().toISOString()
+        installedAt: new Date().toISOString(),
     });
     await fs_extra_1.default.writeJson(configPath, config, { spaces: 2 });
     return result;

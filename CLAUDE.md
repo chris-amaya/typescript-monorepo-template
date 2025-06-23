@@ -412,6 +412,90 @@ These commands make AI calls and may take up to a minute:
 - Provides more informed task creation and updates
 - Recommended for complex technical tasks
 
+## Testing Requirements
+
+### Unit Testing for All Tasks
+
+When implementing features, **always include unit tests** as part of the task completion criteria:
+
+1. **Test Coverage Requirements**:
+   - Write tests for all new functions and modules
+   - Aim for at least 80% code coverage
+   - Test both success and failure cases
+   - Include edge cases and error handling
+
+2. **Testing Framework**:
+   - **ALWAYS use Vitest** - no other testing frameworks allowed
+   - If Vitest is not installed, add it with: `npm install --save-dev vitest @vitest/ui`
+   - Configure in `vitest.config.ts` if needed
+
+3. **Test Organization**:
+   - Place tests adjacent to source files (e.g., `feature.ts` → `feature.test.ts`)
+   - Or in a dedicated `__tests__` directory
+   - Follow project conventions if they exist
+
+4. **What to Test**:
+   - **Validation logic**: Schema validators, input validation
+   - **Business logic**: Core algorithms, data transformations
+   - **Error handling**: Invalid inputs, edge cases
+   - **Integration points**: API calls, file I/O (using mocks)
+   - **CLI commands**: Command parsing, output formatting
+
+5. **Task Completion Checklist**:
+   - [ ] Implementation complete
+   - [ ] Unit tests written and passing
+   - [ ] Edge cases covered
+   - [ ] Error scenarios tested
+   - [ ] Documentation updated
+   - [ ] Linting/type checking passes
+
+6. **Updating Tasks**:
+   When a task is missing tests, use:
+   ```bash
+   task-master update-task --id=<id> --prompt="Add unit tests for [feature]"
+   ```
+
+### Example Test Structure (Vitest)
+
+```typescript
+// feature.test.ts
+import { describe, it, expect, beforeEach, vi } from 'vitest';
+import { featureFunction } from './feature';
+
+describe('Feature Name', () => {
+  describe('functionName', () => {
+    it('should handle valid input', () => {
+      const result = featureFunction('valid');
+      expect(result).toBe('expected');
+    });
+    
+    it('should throw error for invalid input', () => {
+      expect(() => featureFunction('invalid')).toThrow('Expected error');
+    });
+    
+    it('should handle edge case', () => {
+      // Test edge cases
+    });
+  });
+});
+```
+
+### Running Tests
+
+```bash
+# Run all tests
+npm test
+
+# Run tests in watch mode
+npm run test:watch
+
+# Run tests with UI
+npm run test:ui
+
+# Run tests with coverage
+npm run test:coverage
+```
+
 ---
 
 _This guide ensures Claude Code has immediate access to Task Master's essential functionality for agentic development workflows._

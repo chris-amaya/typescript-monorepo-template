@@ -20,9 +20,9 @@ exports.listCommand = new commander_1.Command('list')
         }
         console.log(chalk_1.default.bold('\nAvailable Features:\n'));
         const filteredFeatures = options.category
-            ? features.filter(f => f.category === options.category)
+            ? features.filter((f) => f.category === options.category)
             : features;
-        filteredFeatures.forEach(feature => {
+        filteredFeatures.forEach((feature) => {
             console.log(chalk_1.default.cyan(`  ${feature.id}`) + chalk_1.default.gray(` (v${feature.version})`));
             console.log(`    ${feature.description}`);
             if (options.verbose) {

@@ -24,7 +24,7 @@ async function getAvailableFeatures() {
             modifiedAt: new Date().toISOString(),
             isActive: true,
             minNodeVersion: '16.0.0',
-            license: 'MIT'
+            license: 'MIT',
         },
         {
             id: 'database-postgres',
@@ -38,13 +38,13 @@ async function getAvailableFeatures() {
             modifiedAt: new Date().toISOString(),
             isActive: true,
             minNodeVersion: '16.0.0',
-            license: 'MIT'
-        }
+            license: 'MIT',
+        },
     ];
 }
 async function getInstalledFeatures() {
     const configPath = path_1.default.join(process.cwd(), '.monorepo-features', 'config.json');
-    if (!await fs_extra_1.default.pathExists(configPath)) {
+    if (!(await fs_extra_1.default.pathExists(configPath))) {
         return [];
     }
     const config = await fs_extra_1.default.readJson(configPath);
@@ -54,7 +54,7 @@ async function validateFeatureIntegrity() {
     // This would check each installed feature's files and dependencies
     return {
         issues: [],
-        missingDependencies: []
+        missingDependencies: [],
     };
 }
 //# sourceMappingURL=features.js.map

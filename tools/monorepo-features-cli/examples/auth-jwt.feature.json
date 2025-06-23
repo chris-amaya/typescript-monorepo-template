@@ -1,0 +1,115 @@
+{
+  "id": "auth-jwt",
+  "name": "JWT Authentication",
+  "description": "Adds JWT-based authentication with refresh tokens, user management, and protected routes",
+  "version": "1.0.0",
+  "author": "Monorepo Features Team",
+  "category": "authentication",
+  "createdAt": "2025-06-23T09:00:00Z",
+  "modifiedAt": "2025-06-23T09:00:00Z",
+  "tags": ["jwt", "auth", "security", "users"],
+  "isActive": true,
+  "minNodeVersion": "18.0.0",
+  "minTemplateVersion": "1.0.0",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/monorepo-features/auth-jwt"
+  },
+  "dependencies": ["database-postgresql"],
+  "conflicts": ["auth-oauth"],
+  "npmPackages": [
+    {
+      "name": "jsonwebtoken",
+      "version": "^9.0.0",
+      "dev": false
+    },
+    {
+      "name": "bcryptjs",
+      "version": "^2.4.3",
+      "dev": false
+    },
+    {
+      "name": "@types/jsonwebtoken",
+      "version": "^9.0.0",
+      "dev": true
+    },
+    {
+      "name": "@types/bcryptjs",
+      "version": "^2.4.3",
+      "dev": true
+    }
+  ],
+  "templates": [
+    {
+      "sourcePath": "templates/auth/auth.service.ts",
+      "targetPath": "packages/auth/src/auth.service.ts",
+      "variables": {
+        "JWT_SECRET_LENGTH": "32",
+        "TOKEN_EXPIRY": "15m",
+        "REFRESH_TOKEN_EXPIRY": "7d"
+      }
+    },
+    {
+      "sourcePath": "templates/auth/auth.controller.ts",
+      "targetPath": "packages/auth/src/auth.controller.ts"
+    },
+    {
+      "sourcePath": "templates/auth/auth.middleware.ts",
+      "targetPath": "packages/auth/src/auth.middleware.ts"
+    },
+    {
+      "sourcePath": "templates/auth/user.model.ts",
+      "targetPath": "packages/database/src/models/user.model.ts"
+    }
+  ],
+  "scripts": [
+    {
+      "name": "auth:generate-secret",
+      "command": "node -e \"console.log(require('crypto').randomBytes(32).toString('hex'))\"",
+      "description": "Generate a secure JWT secret",
+      "workspace": "root"
+    }
+  ],
+  "environmentVariables": [
+    {
+      "name": "JWT_SECRET",
+      "description": "Secret key for signing JWT tokens",
+      "required": true,
+      "example": "your-super-secret-jwt-key-here",
+      "validation": "^.{32,}$"
+    },
+    {
+      "name": "JWT_REFRESH_SECRET",
+      "description": "Secret key for signing refresh tokens",
+      "required": true,
+      "example": "your-super-secret-refresh-key-here",
+      "validation": "^.{32,}$"
+    },
+    {
+      "name": "JWT_EXPIRY",
+      "value": "15m",
+      "description": "JWT token expiration time",
+      "required": false
+    }
+  ],
+  "configurationFiles": [
+    {
+      "path": ".env.example",
+      "content": "# Authentication\nJWT_SECRET=\nJWT_REFRESH_SECRET=\nJWT_EXPIRY=15m\n",
+      "format": "env",
+      "merge": true,
+      "mergeStrategy": "append"
+    }
+  ],
+  "postInstallInstructions": "Authentication has been successfully installed!\n\n1. Generate JWT secrets by running: npm run auth:generate-secret\n2. Add the generated secrets to your .env file\n3. Run database migrations to create user tables\n4. Import and use the auth middleware in your routes\n\nFor more information, see the documentation at https://docs.monorepo-features.dev/auth-jwt",
+  "documentation": {
+    "url": "https://docs.monorepo-features.dev/features/auth-jwt",
+    "quickStart": "Import the auth middleware and protect your routes:\n\n```typescript\nimport { authenticate } from '@monorepo/auth';\n\napp.get('/protected', authenticate, (req, res) => {\n  res.json({ user: req.user });\n});\n```",
+    "examples": [
+      "Basic authentication flow",
+      "Refresh token implementation",
+      "Role-based access control"
+    ]
+  }
+}
