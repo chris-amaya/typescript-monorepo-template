@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "composite": true,
+    "declaration": true,
+    "module": "esnext",
+    "moduleResolution": "bundler"
+  },
+  "references": [
+    {
+      "path": "../../packages/database"
+    }
+  ],
+  "include": ["src/**/*"]
+}

@@ -1,0 +1,30 @@
+{
+  "name": "{{projectName}}",
+  "version": "0.1.0",
+  "description": "{{projectDescription}}",
+  "private": true,
+  "scripts": {
+    "dev": "concurrently \"pnpm --filter @{{projectName}}/web dev\" \"pnpm --filter @{{projectName}}/api-server dev\"",
+    "build": "turbo run build --filter=@{{projectName}}/*",
+    "test": "pnpm -r --filter @{{projectName}}/* run test",
+    "test:ui": "pnpm --filter @{{projectName}}/web test:ui",
+    "lint": "turbo run lint --filter=@{{projectName}}/*",
+    "lint:fix": "turbo run lint --filter=@{{projectName}}/* -- --fix",
+    "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
+    "typecheck": "turbo run typecheck --filter=@{{projectName}}/*",
+    "clean": "turbo run clean --filter=@{{projectName}}/*",
+    "setup": "node scripts/setup.js"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "concurrently": "^8.2.2",
+    "prettier": "^3.0.0",
+    "turbo": "^1.13.0",
+    "typescript": "^5.4.0"
+  },
+  "engines": {
+    "node": ">=20.0.0",
+    "pnpm": ">=8.0.0"
+  },
+  "packageManager": "pnpm@10.10.0"
+}

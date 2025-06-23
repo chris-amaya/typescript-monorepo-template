@@ -1,0 +1,171 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+
+scripts/output.txt
+
+/.pnp
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/versions
+
+# testing
+/coverage
+
+# next.js
+
+/out/
+
+# production
+/build
+
+# misc
+.DS_Store
+*.pem
+
+# debug
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+.pnpm-debug.log*
+
+# env files (can opt-in for committing if needed)
+.env
+
+# vercel
+.vercel
+
+# typescript
+*.tsbuildinfo
+next-env.d.ts
+
+
+apps/web/.next/
+apps/web/node_modules/
+apps/socket-server/dist/
+apps/socket-server/node_modules/
+
+packages/core/dist
+packages/core/node_modules
+
+packages/shared/dist
+packages/shared/node_modules
+
+packages/database/dist
+packages/database/node_modules
+
+
+
+# macOS
+
+.DS\_Store
+
+# Windows
+
+Thumbs.db
+
+# Node.js dependencies
+
+# pnpm store (optional, pnpm handles this internally)
+
+.pnpm-store/
+
+# Lock files
+
+# (Keep one lock file at root—remove if you prefer to track it)
+
+# pnpm-lock.yaml
+
+# yarn.lock
+
+# package-lock.json
+
+# TypeScript build cache
+
+*.tsbuildinfo
+\*\*/*.tsbuildinfo
+
+# Next.js build output
+
+apps/web/.next/
+apps/web/out/
+
+# Build outputs for other services
+
+apps/socket-server/dist/
+apps/openai-server/dist/
+
+# Log files
+
+logs/
+*.log
+npm-debug.log*
+pnpm-debug.log\*
+
+# Environment variables
+
+.env
+.env.\*.local
+
+# VSCode settings
+
+.vscode/**
+
+# Coverage directory
+
+coverage/
+
+# IDE/editor folders
+
+.idea/
+
+# Mac temp files
+
+\*\*/.DS\_Store
+
+# Turborepo cache (if using Turborepo)
+
+.turbo/
+.cache/
+
+# Misc
+
+\*.swp
+\*\~
+
+# Ensure root monorepo configs are tracked only at root
+
+# (ignore any stray ones in workspaces)
+
+apps/*/package.json
+!apps/*/package.json
+
+# Added by Claude Task Master
+# Logs
+logs
+dev-debug.log
+# Dependency directories
+node_modules/
+# Editor directories and files
+.idea
+.vscode
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+# OS specific
+
+# Whisper.cpp native build artifacts
+apps/openai-server/vendor/whisper.cpp/build/
+apps/openai-server/native/whisper_binding/build/
+apps/openai-server/native/whisper_binding/*.node
+apps/openai-server/native/whisper_build/
+
+# Downloaded Whisper models (can be re-downloaded)
+apps/openai-server/models/
+apps/openai-server/docker-artifacts/

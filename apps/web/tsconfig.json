@@ -1,0 +1,57 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".", // 🔑 must point at apps/web
+    "outDir": ".next",
+    "tsBuildInfoFile": "node_modules/.cache/web.tsbuildinfo",
+    "target": "ES2017",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "noEmit": false,
+    "esModuleInterop": true,
+    "module": "esnext",
+    "moduleResolution": "bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "jsx": "preserve",
+    "incremental": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    // "rootDir": ".",
+    "paths": {
+      "@/*": ["./*"], // your web-app imports
+      "@core/*": ["../../packages/core/src/*"], // your shared core
+      "@database/*": ["../../packages/database/src/*"] // your shared database
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "../../packages/core/src/infrastructure/db/prisma.ts",
+    "../../packages/core/src/infrastructure/db/profile-schema.ts",
+    "../../packages/core/src/services/chat/notifyFollowers.ts",
+    "../../packages/core/src/services/chat/roomCleanupService.ts"
+  ],
+  "exclude": ["node_modules"],
+  "references": [
+    {
+      "path": "../../packages/shared"
+    },
+    {
+      "path": "../../packages/core"
+    },
+    {
+      "path": "../../packages/database"
+    }
+  ],
+  "ts-node": {
+    "swc": true
+  }
+}
